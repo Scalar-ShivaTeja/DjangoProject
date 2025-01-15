@@ -15,9 +15,30 @@ from DjangoIntro.models import User,Product
 
 #method 2 Start
 class UserAdmin(admin.ModelAdmin):
-    fields = ['username','name','address']
-    list_display = ['username','name','email','address']
+    fields = ['username','title','name','email' ,'address']
+    list_display = ['title','name','email' ,'address']
     search_fields = ['username','name','email','address']
 
 admin.site.register(User,UserAdmin)
 #method 2 End
+
+class ProductAdmin(admin.ModelAdmin):
+    # fields = ['name','price','description','stock']
+    list_display = ['name','price','description','stock']
+    search_fields = ['name','price','description','stock']
+
+    fieldsets = (
+        ('Product Info', {
+            'fields': [
+                'name', 'price', 'description'
+            ],
+        }),
+        ('Stock Info', {
+            'fields': ['stock'],
+            'classes': ['collapse']
+        }),
+
+    )
+
+
+admin.site.register(Product,ProductAdmin)
